@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { NotFoundException, ForbiddenException } from '@nestjs/common';
 import { RoastsService } from './roasts.service';
 import { FirebaseService } from '../firebase/firebase.service';
+import { MockStorageService } from '../firebase/mock-storage.service';
 import { RoastType } from './entities/roast.entity';
 
 describe('RoastsService', () => {
@@ -37,13 +38,29 @@ describe('RoastsService', () => {
     getFirestore: jest.fn(() => mockFirestore),
   };
 
+  const mockStorageService = {
+    getRoasts: jest.fn(),
+    getRoast: jest.fn(),
+    createRoast: jest.fn(),
+    updateRoast: jest.fn(),
+    deleteRoast: jest.fn(),
+  };
+
   beforeEach(async () => {
+    // Disable dev mode for tests
+    process.env.ENABLE_DEV_AUTH = 'false';
+    process.env.NODE_ENV = 'test';
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         RoastsService,
         {
           provide: FirebaseService,
           useValue: mockFirebaseService,
+        },
+        {
+          provide: MockStorageService,
+          useValue: mockStorageService,
         },
       ],
     }).compile();
@@ -53,6 +70,12 @@ describe('RoastsService', () => {
 
     // Clear all mocks
     jest.clearAllMocks();
+  });
+
+  afterEach(() => {
+    // Restore environment variables
+    delete process.env.ENABLE_DEV_AUTH;
+    delete process.env.NODE_ENV;
   });
 
   it('should be defined', () => {

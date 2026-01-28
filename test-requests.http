@@ -1,0 +1,64 @@
+### Health Check
+GET http://localhost:5174/health
+
+###
+
+### Get Calendar for January 2026
+GET http://localhost:5174/calendar?year=2026&month=01
+Authorization: Bearer dev-token-123
+
+###
+
+### Create Roast - Excited
+POST http://localhost:5174/calendar
+Content-Type: application/json
+Authorization: Bearer dev-token-123
+
+{
+  "roast": "excited",
+  "message": "Amazing coffee today!",
+  "date": 1738022400000
+}
+
+###
+
+### Create Roast - Tired (with current timestamp)
+POST http://localhost:5174/calendar
+Content-Type: application/json
+Authorization: Bearer dev-token-123
+
+{
+  "roast": "tired",
+  "message": "Great coffee from triciclo today",
+  "date": 1769555208515
+}
+
+###
+
+### Create Roast - OK (no message)
+POST http://localhost:5174/calendar
+Content-Type: application/json
+Authorization: Bearer dev-token-123
+
+{
+  "roast": "ok",
+  "date": 1769555208515
+}
+
+###
+
+### Update Roast (replace ROAST_ID with actual ID from response)
+PATCH http://localhost:5174/calendar/REPLACE_WITH_ACTUAL_ID
+Content-Type: application/json
+Authorization: Bearer dev-token-123
+
+{
+  "roast": "excited",
+  "message": "Updated: Feeling much better now!"
+}
+
+###
+
+### Delete Roast (replace ROAST_ID with actual ID)
+DELETE http://localhost:5174/calendar/REPLACE_WITH_ACTUAL_ID
+Authorization: Bearer dev-token-123

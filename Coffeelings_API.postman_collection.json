@@ -1,0 +1,368 @@
+{
+	"info": {
+		"_postman_id": "coffeelings-api-dev",
+		"name": "Coffeelings API",
+		"description": "Test the Coffeelings API with mock authentication",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5174/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"health"
+					]
+				},
+				"description": "Health check endpoint - no authentication required"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Calendar",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer dev-token-123",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5174/calendar?year=2026&month=01",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"calendar"
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "2026",
+							"description": "4-digit year (e.g., 2026)"
+						},
+						{
+							"key": "month",
+							"value": "01",
+							"description": "Zero-padded month: 01-12 (NOT 1-12)"
+						}
+					]
+				},
+				"description": "Get all roasts for a specific month. IMPORTANT: month must be zero-padded (01, 02, etc.)"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Roast - Excited",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer dev-token-123",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"roast\": \"excited\",\n  \"message\": \"Great coffee today!\",\n  \"date\": 1738022400000\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5174/calendar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"calendar"
+					]
+				},
+				"description": "Create a new roast with 'excited' mood"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Roast - OK",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer dev-token-123",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"roast\": \"ok\",\n  \"date\": 1738022400000\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5174/calendar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"calendar"
+					]
+				},
+				"description": "Create a roast without message (optional)"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Roast - Tired",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer dev-token-123",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"roast\": \"tired\",\n  \"message\": \"Need more sleep...\",\n  \"date\": 1738022400000\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5174/calendar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"calendar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Roast - Sad",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer dev-token-123",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"roast\": \"sad\",\n  \"message\": \"Not feeling great\",\n  \"date\": 1738022400000\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5174/calendar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"calendar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Roast - Angry",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer dev-token-123",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"roast\": \"angry\",\n  \"message\": \"Traffic was terrible!\",\n  \"date\": 1738022400000\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5174/calendar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"calendar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Roast",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer dev-token-123",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"roast\": \"excited\",\n  \"message\": \"Updated: Feeling much better now!\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5174/calendar/REPLACE_WITH_ROAST_ID",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"calendar",
+						"REPLACE_WITH_ROAST_ID"
+					]
+				},
+				"description": "Update an existing roast - replace ROAST_ID with actual ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Roast",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer dev-token-123",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5174/calendar/REPLACE_WITH_ROAST_ID",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"calendar",
+						"REPLACE_WITH_ROAST_ID"
+					]
+				},
+				"description": "Delete a roast - replace ROAST_ID with actual ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Error - Invalid Roast Type",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer dev-token-123",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"roast\": \"invalid_mood\",\n  \"message\": \"This should fail validation\",\n  \"date\": 1738022400000\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5174/calendar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"calendar"
+					]
+				},
+				"description": "Test validation error - should return 400"
+			},
+			"response": []
+		},
+		{
+			"name": "Error - No Auth Token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5174/calendar?year=2026&month=01",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"calendar"
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "2026"
+						},
+						{
+							"key": "month",
+							"value": "01"
+						}
+					]
+				},
+				"description": "Test auth error - should return 401"
+			},
+			"response": []
+		}
+	]
+}
