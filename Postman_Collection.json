@@ -1,0 +1,399 @@
+{
+  "info": {
+    "name": "Coffeelings API - Development",
+    "description": "Development collection for testing Coffeelings API with mock authentication",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "dev-token-123",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5174/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5174",
+          "path": ["health"]
+        },
+        "description": "Check if the API is running (no authentication required)"
+      }
+    },
+    {
+      "name": "Get Calendar (Empty)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5174/calendar?year=2026&month=01",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5174",
+          "path": ["calendar"],
+          "query": [
+            {
+              "key": "year",
+              "value": "2026"
+            },
+            {
+              "key": "month",
+              "value": "01"
+            }
+          ]
+        },
+        "description": "Get calendar entries for January 2026 (should be empty)"
+      }
+    },
+    {
+      "name": "Create Roast - Excited",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Save the roast ID for later use",
+              "if (pm.response.code === 201) {",
+              "    const response = pm.response.json();",
+              "    pm.collectionVariables.set('roastId', response.id);",
+              "    console.log('Created roast with ID:', response.id);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"roast\": \"excited\",\n  \"message\": \"Amazing coffee this morning! ☕\",\n  \"date\": {{currentTimestamp}}\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5174/calendar",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5174",
+          "path": ["calendar"]
+        },
+        "description": "Create a new roast entry with 'excited' mood"
+      }
+    },
+    {
+      "name": "Create Roast - Tired",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"roast\": \"tired\",\n  \"message\": \"Need more sleep...\",\n  \"date\": {{currentTimestamp}}\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5174/calendar",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5174",
+          "path": ["calendar"]
+        },
+        "description": "Create a new roast entry with 'tired' mood"
+      }
+    },
+    {
+      "name": "Create Roast - OK",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"roast\": \"ok\",\n  \"date\": {{currentTimestamp}}\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5174/calendar",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5174",
+          "path": ["calendar"]
+        },
+        "description": "Create a new roast entry with 'ok' mood (no message)"
+      }
+    },
+    {
+      "name": "Create Roast - Sad",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"roast\": \"sad\",\n  \"message\": \"Not the best day\",\n  \"date\": {{currentTimestamp}}\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5174/calendar",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5174",
+          "path": ["calendar"]
+        },
+        "description": "Create a new roast entry with 'sad' mood"
+      }
+    },
+    {
+      "name": "Create Roast - Angry",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"roast\": \"angry\",\n  \"message\": \"Traffic was terrible!\",\n  \"date\": {{currentTimestamp}}\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5174/calendar",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5174",
+          "path": ["calendar"]
+        },
+        "description": "Create a new roast entry with 'angry' mood"
+      }
+    },
+    {
+      "name": "Get Calendar (Current Month)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5174/calendar?year={{currentYear}}&month={{currentMonth}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5174",
+          "path": ["calendar"],
+          "query": [
+            {
+              "key": "year",
+              "value": "{{currentYear}}"
+            },
+            {
+              "key": "month",
+              "value": "{{currentMonth}}"
+            }
+          ]
+        },
+        "description": "Get all roasts for the current month"
+      }
+    },
+    {
+      "name": "Update Roast",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"roast\": \"excited\",\n  \"message\": \"Updated: Feeling much better now!\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5174/calendar/{{roastId}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5174",
+          "path": ["calendar", "{{roastId}}"]
+        },
+        "description": "Update an existing roast (uses roastId from collection variables)"
+      }
+    },
+    {
+      "name": "Update Roast - Change Date",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"date\": {{currentTimestamp}}\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5174/calendar/{{roastId}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5174",
+          "path": ["calendar", "{{roastId}}"]
+        },
+        "description": "Update only the date of an existing roast"
+      }
+    },
+    {
+      "name": "Delete Roast",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5174/calendar/{{roastId}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5174",
+          "path": ["calendar", "{{roastId}}"]
+        },
+        "description": "Delete a roast (uses roastId from collection variables)"
+      }
+    },
+    {
+      "name": "Error: Invalid Roast Type",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"roast\": \"invalid_mood\",\n  \"message\": \"This should fail\",\n  \"date\": {{currentTimestamp}}\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5174/calendar",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5174",
+          "path": ["calendar"]
+        },
+        "description": "Test validation error (should return 400 Bad Request)"
+      }
+    },
+    {
+      "name": "Error: Missing Required Fields",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"message\": \"Missing roast and date fields\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5174/calendar",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5174",
+          "path": ["calendar"]
+        },
+        "description": "Test validation error for missing fields (should return 400 Bad Request)"
+      }
+    },
+    {
+      "name": "Error: Unauthorized (No Token)",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5174/calendar?year=2026&month=01",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5174",
+          "path": ["calendar"],
+          "query": [
+            {
+              "key": "year",
+              "value": "2026"
+            },
+            {
+              "key": "month",
+              "value": "01"
+            }
+          ]
+        },
+        "description": "Test authentication error (should return 401 Unauthorized)"
+      }
+    },
+    {
+      "name": "Error: Roast Not Found",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5174/calendar/00000000-0000-0000-0000-000000000000",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5174",
+          "path": ["calendar", "00000000-0000-0000-0000-000000000000"]
+        },
+        "description": "Test 404 error for non-existent roast"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "roastId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "currentTimestamp",
+      "value": "{{$timestamp}}000",
+      "type": "string"
+    },
+    {
+      "key": "currentYear",
+      "value": "2026",
+      "type": "string"
+    },
+    {
+      "key": "currentMonth",
+      "value": "01",
+      "type": "string"
+    }
+  ]
+}
