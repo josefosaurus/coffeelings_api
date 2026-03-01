@@ -1,6 +1,7 @@
 import { Injectable, OnModuleInit, UnauthorizedException, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as admin from 'firebase-admin';
+import { getFirestore } from 'firebase-admin/firestore';
 
 @Injectable()
 export class FirebaseService implements OnModuleInit {
@@ -26,7 +27,7 @@ export class FirebaseService implements OnModuleInit {
     // Check if we're in development mode with dev auth enabled, or in test mode
     this.isDevMode = (enableDevAuth === 'true' && nodeEnv === 'development') || nodeEnv === 'test';
 
-    if (this.isDevMode && (projectId === 'coffeelings-dev' || nodeEnv === 'test')) {
+    if (this.isDevMode && (process.env.MOCK_STORAGE !== 'false' || nodeEnv === 'test')) {
       if (nodeEnv === 'development') {
         this.logger.warn('🚧 Running in DEVELOPMENT mode with mocked Firebase');
         this.logger.warn('⚠️  Use "Bearer dev-token-123" for authentication in Postman');
@@ -47,7 +48,7 @@ export class FirebaseService implements OnModuleInit {
       });
     } catch (error) {
       if (this.isDevMode) {
-        this.logger.warn('Firebase initialization failed (expected in dev mode with mock credentials)');
+        this.logger.error(`Firebase initialization failed: ${error.message}`);
       } else {
         throw error;
       }
@@ -55,12 +56,8 @@ export class FirebaseService implements OnModuleInit {
   }
 
   getFirestore(): admin.firestore.Firestore {
-    if (this.isDevMode) {
-      this.logger.warn('Firestore called in dev mode - using in-memory mock');
-      // In dev mode, Firestore won't work with mock credentials
-      // The roasts service should handle this gracefully
-    }
-    return admin.firestore();
+    const databaseId = process.env.FIRESTORE_DATABASE_ID || '(default)';
+    return getFirestore(this.firebaseApp, databaseId);
   }
 
   async verifyIdToken(token: string): Promise<admin.auth.DecodedIdToken> {

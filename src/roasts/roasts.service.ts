@@ -20,7 +20,7 @@ export class RoastsService {
     private readonly firebaseService: FirebaseService,
     private readonly mockStorage: MockStorageService,
   ) {
-    this.isDevMode = process.env.ENABLE_DEV_AUTH === 'true' && process.env.NODE_ENV === 'development';
+    this.isDevMode = process.env.ENABLE_DEV_AUTH === 'true' && process.env.NODE_ENV === 'development' && process.env.MOCK_STORAGE !== 'false';
     if (this.isDevMode) {
       this.logger.warn('🚧 RoastsService running in DEVELOPMENT mode with mock storage');
     }

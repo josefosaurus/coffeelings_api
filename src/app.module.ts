@@ -10,6 +10,8 @@ import configuration from './config/configuration';
 @Module({
   imports: [
     ConfigModule.forRoot({
+      // Order matters: the first file found with a variable wins
+      envFilePath: ['.env.local', '.env'],
       isGlobal: true,
       load: [configuration],
     }),

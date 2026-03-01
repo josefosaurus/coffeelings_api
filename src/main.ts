@@ -1,3 +1,7 @@
+import * as dotenv from 'dotenv';
+// Load .env.local with override so it takes precedence over shell environment variables
+dotenv.config({ path: '.env.local', override: true });
+
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe, Logger } from '@nestjs/common';
 import { AppModule } from './app.module';
@@ -32,9 +36,10 @@ async function bootstrap() {
   // Cloud Run uses PORT environment variable
   const port = parseInt(process.env.PORT || '5174', 10);
 
-  await app.listen(port);
+  // Listen on all interfaces (0.0.0.0) for Cloud Run
+  await app.listen(port, '0.0.0.0');
 
-  logger.log(`Application is running on: http://localhost:${port}`);
+  logger.log(`Application is running on: http://0.0.0.0:${port}`);
   logger.log(`Health check available at: http://localhost:${port}/health`);
   logger.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
 
