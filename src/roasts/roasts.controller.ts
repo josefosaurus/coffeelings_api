@@ -28,7 +28,8 @@ export class RoastsController {
     @UserId() userId: string,
     @Query() query: QueryCalendarDto,
   ) {
-    return this.roastsService.getCalendar(userId, query.year, query.month);
+    const data = await this.roastsService.getCalendar(userId, query.year, query.month);
+    return { status: HttpStatus.OK, data };
   }
 
   @Post()
@@ -37,7 +38,8 @@ export class RoastsController {
     @UserId() userId: string,
     @Body() createDto: CreateRoastDto,
   ) {
-    return this.roastsService.createRoast(userId, createDto);
+    const data = await this.roastsService.createRoast(userId, createDto);
+    return { status: HttpStatus.CREATED, data };
   }
 
   @Patch(':id')
@@ -46,7 +48,8 @@ export class RoastsController {
     @Param('id') id: string,
     @Body() updateDto: UpdateRoastDto,
   ) {
-    return this.roastsService.updateRoast(userId, id, updateDto);
+    const data = await this.roastsService.updateRoast(userId, id, updateDto);
+    return { status: HttpStatus.OK, data };
   }
 
   @Delete(':id')

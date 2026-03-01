@@ -188,7 +188,10 @@ export class RoastsService {
       throw new ForbiddenException('You do not have permission to update this roast');
     }
 
-    await roastRef.update(updatedData);
+    const firestoreUpdate = Object.fromEntries(
+      Object.entries(updatedData).filter(([, v]) => v !== undefined),
+    );
+    await roastRef.update(firestoreUpdate);
 
     const updatedDoc = await roastRef.get();
     const updatedRoast = updatedDoc.data() as DailyRoast;
