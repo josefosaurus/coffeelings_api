@@ -7,5 +7,6 @@ import { FirebaseModule } from '../firebase/firebase.module';
   imports: [FirebaseModule],
   controllers: [RoastsController],
   providers: [RoastsService],
+  exports: [RoastsService],
 })
 export class RoastsModule {}

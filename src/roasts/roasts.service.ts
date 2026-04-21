@@ -204,6 +204,27 @@ export class RoastsService {
     };
   }
 
+  async getRoastById(userId: string, roastId: string): Promise<DailyRoast | null> {
+    if (this.isDevMode) {
+      return this.mockStorage.getRoast(userId, roastId);
+    }
+
+    const db = this.getFirestore();
+    const doc = await db
+      .collection('users')
+      .doc(userId)
+      .collection('roasts')
+      .doc(roastId)
+      .get();
+
+    if (!doc.exists) return null;
+
+    const data = doc.data() as DailyRoast;
+    if (data.userId !== userId) return null;
+
+    return data;
+  }
+
   async deleteRoast(userId: string, roastId: string): Promise<void> {
     // Use mock storage in dev mode
     if (this.isDevMode) {
