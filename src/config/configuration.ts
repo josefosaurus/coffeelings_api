@@ -10,4 +10,8 @@ export default () => ({
   cors: {
     origins: process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:5173'],
   },
+  anthropic: {
+    apiKey: process.env.ANTHROPIC_API_KEY,
+    defaultModel: process.env.ANTHROPIC_DEFAULT_MODEL || 'claude-sonnet-4-6',
+  },
 });

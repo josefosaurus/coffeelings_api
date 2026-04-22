@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { FirebaseModule } from './firebase/firebase.module';
 import { RoastsModule } from './roasts/roasts.module';
 import { HealthModule } from './health/health.module';
+import { ChatModule } from './chat/chat.module';
 import configuration from './config/configuration';
 
 @Module({
@@ -18,6 +19,7 @@ import configuration from './config/configuration';
     FirebaseModule,
     RoastsModule,
     HealthModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService],
