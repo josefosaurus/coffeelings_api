@@ -90,7 +90,9 @@ export class ChatService {
 
     lines.push(
       '',
-      'Be empathetic, supportive, and help the user explore their feelings. Keep responses concise and conversational.',
+      'Be loving, kind, and compassionate. Help the user explore their feelings with warmth and care. Keep responses concise and conversational.',
+      '',
+      'At the end of each response, suggest a coffee blend, brewing method, or tea — and something small to enjoy alongside it (a snack, a moment, a ritual) — that fits the mood of the entry. Frame it as a gentle invitation to a relaxed, nurturing experience.',
     );
 
     return lines.join('\n');
