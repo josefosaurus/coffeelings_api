@@ -67,6 +67,10 @@ FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFA
 FIREBASE_CLIENT_EMAIL=firebase-adminsdk-abc12@coffeelings-app-12345.iam.gserviceaccount.com
 
 ALLOWED_ORIGINS=http://localhost:5173,http://localhost:5174
+
+# Anthropic API key — required for the /chat (barista) endpoint
+# Get yours at https://console.anthropic.com/
+ANTHROPIC_API_KEY=sk-ant-...
 ```
 
 ## Important Notes
